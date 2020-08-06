@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+	<Resource
+		name="jdbc/mysql"
+		auth="Container"
+		type="javax.sql.Datasource"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/jsp_model2_db5"
+		username="root"
+		password="1234"
+		maxActive="100" 
+		maxIdle="20"
+	/>
+	
+	<!-- maxActive: 동시에 제공할 수 있는 최대 커넥션 개수 지정: 동접자 확인
+	     maxIdle: 서비스 중인 객체 제외하고 커넥션 풀이 보유하고 있어야 하는 최대한의 커넥션 개수-->
+
+</Context>
