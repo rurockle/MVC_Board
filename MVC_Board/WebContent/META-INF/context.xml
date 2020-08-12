@@ -2,9 +2,9 @@
 
 <Context>
 	<Resource
-		name="jdbc/mysql"
+		name="jdbc/MySQL"
 		auth="Container"
-		type="javax.sql.Datasource"
+		type="javax.sql.DataSource"
 		driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/jsp_model2_db5"
 		username="root"

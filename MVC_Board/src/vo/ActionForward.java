@@ -1,4 +1,4 @@
-package action;
+package vo;
 
 public class ActionForward {
 	
@@ -23,7 +23,5 @@ public class ActionForward {
 	public void setRedirect(boolean isRedirect) {
 		this.isRedirect = isRedirect;
 	}
-	
-	
-	
+		
 }

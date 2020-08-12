@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import vo.ActionForward;
+
 public interface Action {
 	// XXXAction 클래스를 통해 각 요청에 대한 작업을 처리하기 위해서
 	// 클라이언트로부터의 요청이 들어올 때 서로 다른 클래스들에 대한 요청이므로

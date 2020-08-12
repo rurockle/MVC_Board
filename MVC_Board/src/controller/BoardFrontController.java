@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.ActionForward;
+import action.BoardDetailAction;
+import action.BoardListAction;
 import action.BoardWriteProAction;
+import vo.ActionForward;
 
 
 
 // URL에 요청된 서블릿 주소가 XXX.bo로 끝날 경우
-// 해당 주소를 서블릿 클래스인 BoardFrontController 클래스로 연결(URL 매핑) // 파라미터 여부는 상관 없음
+// 해당 주소를 서블릿 클래스인 BoardFrontController 클래스로 연결(URL 매핑) 
+// 파라미터 여부는 상관 없음
 @WebServlet("*.bo")
 public class BoardFrontController extends HttpServlet {
 	// 서블릿 클래스 정의 시 HttpServlet 클래스를 상속받아 정의
@@ -25,7 +28,7 @@ public class BoardFrontController extends HttpServlet {
 	// ==> 두 방식을 공통으로 처리하기 위해 doProcess()메서드를 별도로 정의하여 호출
    
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Board프론트Controller");
+//		SYSTEM.OUT.PRINTLN("BOARD프론트CONTROLLER");
 		
 		// POST 방식 요청에 대한 한글 처리
 		request.setCharacterEncoding("UTF-8");
@@ -57,19 +60,42 @@ public class BoardFrontController extends HttpServlet {
 			//     또한, request 객체가 유지되어야 하므로 Dispatch 방식으로 포워딩
 			// 따라서, ActionForward 객체를 생성하고 URL 전달 및 포워딩 타입 false로 지정
 			forward = new ActionForward();
-			forward.setPath("/board/qna_board_write.jsp"); 
+			forward.setPath("/board/qna_board_write.jsp"); /* JSP페이지 이동시 사용 */
 //			forward.setRedirect(false); // 기본값이 false이므로 생략 가능	
 		}else if(command.equals("/BoardWritePro.bo")) {
+			// 글쓰기 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// ==> BoardWriteProAction 클래스 인스턴스 생성 및 공통 메서드 execute()호출
+			// ==> 로직 수행 후, ActionForward 객체를 리턴받아 포워딩 작업 수행
 			action = new BoardWriteProAction(); // <<- 이동할 클래스(Action 인터페이스 상속 필요!)
 			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace(); /* bo 페이지 이동시 사용*/
+			}
+		}else if(command.equals("/BoardList.bo")) {
+			// 글목록 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// ==> BoardListAction 클래스의 인스턴스 생성 및 공통 메서드 execute() 호출
+			// ==> 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
+			action = new BoardListAction();
+			
+			try {
+				forward=action.execute(request, response); // forward가 있어야 아래 포워딩 작업 가능함
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/BoardDetail.bo")) {
+			// 글 상세 내용 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// ==> BoardDetailAction 클래스의 인스턴스 생성 및 공통 메서드 execute() 호출
+			// ==> 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
+			action = new BoardDetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		 
-				
 		//===============================================================================
 		// Redirect 방식과 Dispatch 방식에 대한 포워딩(이동)을 처리하기 위한 영역
 		/*1. ActionForward 객체가 null이 아닐 때만 포워딩 작업을 수행하기*/		

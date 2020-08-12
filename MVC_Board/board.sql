@@ -18,3 +18,8 @@ desc board
 
 DROP table board;
 
+SELECT * FROM BOARD;
+
+SELECT * FROM board ORDER BY board_re_ref DESC, board_re_seq LIMIT 1,10;
+
+SELECT * FROM board ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT 1,10;

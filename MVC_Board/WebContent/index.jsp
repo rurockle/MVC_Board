@@ -13,5 +13,7 @@
 	<h1>Main</h1>
 <!-- 	<a href="Controller.bo">BoardFrontController Test</a> -->
 	<h2><a href="BoardWriteForm.bo">글쓰기</a></h2>
+	<h2><a href="BoardList.bo">글목록</a></h2>
+	
 </body>
 </html>
