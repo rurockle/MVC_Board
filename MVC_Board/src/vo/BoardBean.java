@@ -15,7 +15,17 @@ public class BoardBean {
 	private int BOARD_RE_SEQ;
 	private int BOARD_READCOUNT;
 	private Date BOARD_DATE;
+	private String BOARD_IP;
 	
+	
+	public String getBOARD_IP() {
+		return BOARD_IP;
+	}
+
+	public void setBOARD_IP(String bOARD_IP) {
+		BOARD_IP = bOARD_IP;
+	}
+
 	public int getBOARD_NUM() {
 		return BOARD_NUM;
 	}

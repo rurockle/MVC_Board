@@ -66,4 +66,14 @@ public class BoardWriteProService {
 		return isWriteSuccess;
 	}
 
+//	public void registIp(String ip) {
+//		Connection con = getConnection(); // JdbcUtil.getConnection()
+//		
+//		BoardDAO boardDAO = BoardDAO.getInstance();
+//		
+//		boardDAO.setConnection(con);
+//		
+//		int insertCount = boardDAO.insertIpInfo(ip);
+//	
+//  }
 }

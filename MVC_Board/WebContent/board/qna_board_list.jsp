@@ -77,6 +77,7 @@ if(articleList != null && listCount > 0){
 				<td>작성자</td>
 				<td>날짜</td>
 				<td>조회수</td>
+				<td>아이피</td>
 			</tr>
 
 			<%
@@ -97,6 +98,7 @@ if(articleList != null && listCount > 0){
 				<td><%=articleList.get(i).getBOARD_NAME() %></td>
 				<td><%=articleList.get(i).getBOARD_DATE() %></td>
 				<td><%=articleList.get(i).getBOARD_READCOUNT() %></td>
+				<td><%=articleList.get(i).getBOARD_IP() %></td>
 			</tr>
 			<%} %>
 		</table>

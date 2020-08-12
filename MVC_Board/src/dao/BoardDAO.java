@@ -69,6 +69,7 @@ public class BoardDAO {
 			pstmt.setInt(8, 0); // board_re_lev(들여쓰기 레벨) - 원본글이므로 들여쓰기 없음
 			pstmt.setInt(9, 0); // board_re_seq(글 순서 번호) - 원본글이므로 0으로 지정
 			pstmt.setInt(10, 0); // 조회수
+//			pstmt.setString(11, article.getBOARD_IP());
 			
 			/* [3-4] SQL 실행 및 결과값을 int형으로 리턴받기 */
 			insertCount = pstmt.executeUpdate();
@@ -240,5 +241,28 @@ public class BoardDAO {
 		
 		return updateCount;
 	}
+//
+//	public int insertIpInfo(String ip) {
+//		int insertCount = 0;
+//		
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		try {
+//			String sql = "INSERT INTO board_ip VALUES (?,now())";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, ip);
+//			insertCount = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+////			e.printStackTrace();
+//			System.out.println("BoardDAO - insertIpInfo() 에러! : " + e.getMessage());
+//		} finally {
+//			// PreparedStatement, ResultSet 객체 반환
+//			close(rs); // JdbcUtil.close(rs)
+//			close(pstmt); // JdbcUtil.close(rs)
+//		}
+//		
+//		return insertCount;
+//	}
 	
 }

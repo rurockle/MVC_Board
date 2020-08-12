@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.BoardDetailAction;
 import action.BoardListAction;
+import action.BoardModifyFormAction;
+import action.BoardModifyProAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
 
@@ -95,6 +97,22 @@ public class BoardFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/BoardModifyForm.bo")) {
+			action = new BoardModifyFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/BoardModifyPro.bo")){
+			action = new BoardModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		}
 		//===============================================================================
 		// Redirect 방식과 Dispatch 방식에 대한 포워딩(이동)을 처리하기 위한 영역

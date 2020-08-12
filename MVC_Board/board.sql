@@ -14,6 +14,8 @@ board_re_seq INT NOT NULL,
 board_readcount INT DEFAULT 0,
 board_date DATE);
 
+board_ip VARCHAR(25));
+
 desc board
 
 DROP table board;

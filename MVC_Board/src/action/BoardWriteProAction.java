@@ -69,7 +69,6 @@ public class BoardWriteProAction implements Action {
 		// 2) 업로드하는 파일이 중복될 때, 이름이 변경된 실제 업로드 된 파일명을 사용할 경우
 //			boardBean.setBoard_file(
 //						multi.getFilesystemName((String)multi.getFileNames().nextElement()));
-			
 		/* BoardWriteProService 클래스의 인스턴스를 생성하여*/
 		// registArticle() 메서드를 호출하고, 글쓰기를 위한 BoardBean 객체 전달
 		// ==> 글쓰기 작업 요청 처리 후, 결과를 boolean 타입으로 리턴받아 포워딩 처리
@@ -78,8 +77,13 @@ public class BoardWriteProAction implements Action {
 		boolean isWriteSuccess = boardWriteProService.registArticle(boardBean); //throws Exception시 여기로 넘어옴
 		
 //		System.out.println("isWriteProService = "+ isWriteSuccess );
-		/* 글 작성 IP주소 가져오기 */
-		String ip = request.getRemoteAddr(); //LocalAddr은 자신의 IP
+		// --------------------------------------------------
+		/* 글 작성 IP 주소 가져오기 */
+		String ip = request.getRemoteAddr();
+		
+//		boardWriteProService.registIp(ip);
+				
+				// --------------------------------------------------
 		
 		/* 글쓰기 작업 요청 처리 결과(isWriteSuccess)를 통해 오류 메시지 출력 및 포워딩 */
 		if (!isWriteSuccess) { /* 요청 실패했을 경우 */
