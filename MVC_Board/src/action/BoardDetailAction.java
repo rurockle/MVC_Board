@@ -18,7 +18,7 @@ public class BoardDetailAction implements Action {
 		// 파라미터로 전달받은 글번호(BOARD_NUM)과 현재페이지(page)를 읽어와서
 		// 글번호를 BoardDetailService 클래스에 전달
 			
-			int board_num = Integer.parseInt((String) request.getParameter("board_num"));
+			int board_num = Integer.parseInt(request.getParameter("board_num"));
 			String page=request.getParameter("page");
 			
 		/* [3] BoardDetailService 클래스의 인스턴스 생성 후 */

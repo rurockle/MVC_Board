@@ -53,8 +53,9 @@ String nowPage = (String) request.getAttribute("page");
 
 <section id = "writeForm">
 <h2>게시판글수정</h2>
-<form action="BoardModifyPro.bo" method="post" name = "modifyform">
-<input type = "hidden" name = "BOARD_NUM" value = "<%=article.getBOARD_NUM()%>"/>
+<form action="BoardModifyPro.bo" method="post" name = "modifyform"> <!-- 넘길 파라미터 -->
+<input type="hidden" name="board_num" value="<%=article.getBOARD_NUM()%>" />
+<input type="hidden" name="page" value="<%=nowPage%>" />
 <table>
 	<tr>
 		<td class="td_left">

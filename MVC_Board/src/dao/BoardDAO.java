@@ -264,5 +264,59 @@ public class BoardDAO {
 //		
 //		return insertCount;
 //	}
-	
+	/* [8] 전달받은 board_num에 해당하는 게시물의 패스워드와 전달받은 board_pass를 비교 */ 
+	// 수정 가능 여부를 판별하는 isArticleBoardWriter() 메서드 정의
+	public boolean isArticleBoardWriter(int board_num, String board_pass) {
+		System.out.println(board_pass);
+		boolean isArticleWriter = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT board_pass FROM board WHERE board_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				/* [8-2] board_num에 해당하는 board_pass가 존재할 경우*/
+				if(board_pass.equals(rs.getString("board_pass"))) {// 패스워드가 존재할 경우
+					// 조회된 패스워드가 입력된 패스워드와 일치할 경우
+					isArticleWriter = true;
+				}
+			}
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("BoardDAO - isArticleBoardWriter() 에러!!");
+		}
+		
+		
+		return isArticleWriter;
+	}
+
+	public int updateBoard(BoardBean article) {
+		int modifyCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,article.getBOARD_NAME());
+			pstmt.setString(2, article.getBOARD_SUBJECT());
+			pstmt.setString(3, article.getBOARD_CONTENT());
+			pstmt.setInt(4, article.getBOARD_NUM());
+			modifyCount = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("BoardDAO - updateBoard() 에러!");
+		}
+		
+		
+		return modifyCount;
+	}
+
+
 }
