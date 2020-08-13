@@ -37,7 +37,7 @@ h2 {
 
 table {
 	margin: auto;
-	width: 450px;
+	width: 500px;
 }
 
 #tr_top {
@@ -47,7 +47,7 @@ table {
 
 #pageList {
 	margin: auto;
-	width: 500px;
+	width: 550px;
 	text-align: center;
 }
 

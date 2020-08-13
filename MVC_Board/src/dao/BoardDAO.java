@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static db.JdbcUtil.close;
+import static db.JdbcUtil.*;
 import vo.BoardBean;
 
 public class BoardDAO {
@@ -56,7 +56,7 @@ public class BoardDAO {
 			}
 			
 			/* [3-4] board 테이블에 전달받은 게시물 정보를 INSERT 작업을 수행 */
-			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,now())";
+			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,now(),?)";
 			pstmt=con.prepareStatement(sql); //pstmt 에 connection 객체를 두번연결하여 나타나는 경고
 			// 이미 알고 사용하므로 큰 문제되지 않음 // pstmt2로 변수를 달리 선언하면 없어짐
 			pstmt.setInt(1, num); //글번호
@@ -69,7 +69,7 @@ public class BoardDAO {
 			pstmt.setInt(8, 0); // board_re_lev(들여쓰기 레벨) - 원본글이므로 들여쓰기 없음
 			pstmt.setInt(9, 0); // board_re_seq(글 순서 번호) - 원본글이므로 0으로 지정
 			pstmt.setInt(10, 0); // 조회수
-//			pstmt.setString(11, article.getBOARD_IP());
+			pstmt.setString(11, article.getBOARD_IP());
 			
 			/* [3-4] SQL 실행 및 결과값을 int형으로 리턴받기 */
 			insertCount = pstmt.executeUpdate();
@@ -156,7 +156,7 @@ public class BoardDAO {
 			   article.setBOARD_RE_SEQ(rs.getInt("board_re_seq"));
 			   article.setBOARD_DATE(rs.getDate("board_date"));
 			   article.setBOARD_READCOUNT(rs.getInt("board_readcount"));
-			   
+			   article.setBOARD_IP(rs.getString("board_ip"));
 			/* [5-4] BoardBean 객체를 ArrayList 객체에 추가 */
 			   articleList.add(article);
 			}
@@ -203,7 +203,8 @@ public class BoardDAO {
 				   article.setBOARD_RE_SEQ(rs.getInt("board_re_seq"));
 				   article.setBOARD_DATE(rs.getDate("board_date"));
 				   article.setBOARD_READCOUNT(rs.getInt("board_readcount"));
-
+				   article.setBOARD_IP(rs.getString("board_ip"));
+	
 			}
 		} catch (SQLException e) {
 			System.out.println("BoardDAO - selectArticle() 실패!!");
@@ -321,6 +322,85 @@ public class BoardDAO {
 		
 		
 		return updateCount;
+	}
+
+	/* [10] 답변글 등록 작업을 위한 insertReplyArticle() 메서드 정의 */
+	public int insertReplyArticle(BoardBean article) {
+		int insertSuccess = 0;
+		
+		// 답글 등록시 필요한 부가정보(board_re_ref, lev, seq) 값을 변수에 저장
+		int ref = article.getBOARD_RE_REF();
+		int lev = article.getBOARD_RE_LEV();
+		int seq = article.getBOARD_RE_SEQ();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		/* [10-2] 답변글 등록 전 새 글 번호 계산 작업 수행 */
+		
+		try {
+
+			int num =1;
+			String sql = "SELECT MAX(board_num) FROM board";
+	
+			pstmt = con.prepareStatement(sql);	
+			rs = pstmt.executeQuery();
+		
+			if(rs.next()) { // 최대 글번호 조회될 경우
+				num = rs.getInt(1) +1; //최대 글번호 +1값을 글 번호로 저장
+				
+			}
+			/* [10-3] 답변글 등록 전 기존 답변글이 있을 경우 순서번호(board_re_seq)정리 */
+			// 기존에 동일한 참조글번호(board_re_ref)의 답글들의 순서번호를 +1
+			// ==> 단, 원본글 제외를 위해 기존 seq 번호가 원본글보다 큰 순서번호만 증가시킴)
+			
+			sql = "UPDATE board SET board_re_seq=board_re_seq+1 WHERE board_re_ref=? AND board_re_seq>?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ref); //원본의 참조글번호 번호
+			pstmt.setInt(2, seq); //원본의 순서번호 전달
+//			int updateCount = pstmt.executeUpdate();
+//			
+//			if(updateCount>0) { //업데이트가 수행됐을 경우 commit 작업 수행
+//				commit(con);
+//			}
+			
+			pstmt.executeUpdate();
+			
+			/* [10-4] 순서번호(board_re_seq)와 들여쓰기 레벨(board_re_lev) 조정 */ 
+			// 기존 번호(답글을 등록할 원본글의 번호) 보다 1만큼 증가시킴
+			seq++;
+			lev++;
+			
+			/* [10-5] 계산된 번호들을 포함하여 답변글 게시물 정보를 추가 작업 수행 */
+			// 단, 답변글에는 파일 업로드가 없으므로 파일은 제외(널스트링"" 전달)
+			sql = "INSERT INTO board VALUES(?,?,?,?,?,?,?,?,?,?,now(),?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, num); //글번호
+			pstmt.setString(2, article.getBOARD_NAME());
+			pstmt.setString(3, article.getBOARD_PASS());
+			pstmt.setString(4, article.getBOARD_SUBJECT());
+			pstmt.setString(5, article.getBOARD_CONTENT());
+			pstmt.setString(6, "");
+			pstmt.setInt(7, ref); // board_re_ref(참조글 번호) 
+			pstmt.setInt(8, lev); // board_re_lev(들여쓰기 레벨) 
+			pstmt.setInt(9, seq); // board_re_seq(글 순서 번호) 
+			pstmt.setInt(10, 0); // 조회수
+			pstmt.setString(11, article.getBOARD_IP());
+
+			
+			insertSuccess = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("BoardDAO - insertReplyArticle() 에러!");
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return insertSuccess;
 	}
 
 

@@ -16,6 +16,7 @@ import action.BoardListAction;
 import action.BoardModifyFormAction;
 import action.BoardModifyProAction;
 import action.BoardReplyFormAction;
+import action.BoardReplyProAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
 
@@ -99,6 +100,9 @@ public class BoardFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/BoardModifyForm.bo")) {
+			// 글 수정을 위한 원본글 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// => BoardModifyFormAction 클래스 인스턴스 생성 및 공통 메서드 execute() 호출
+			// => 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
 			action = new BoardModifyFormAction();
 			
 			try {
@@ -107,6 +111,9 @@ public class BoardFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/BoardModifyPro.bo")){
+			// 글 수정 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// => BoardModifyProAction 클래스 인스턴스 생성 및 공통 메서드 execute() 호출
+			// => 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
 			action = new BoardModifyProAction();
 			try {
 				forward = action.execute(request, response);
@@ -115,7 +122,19 @@ public class BoardFrontController extends HttpServlet {
 			}
 
 		}else if(command.equals("/BoardReplyForm.bo")) {
+			// 글 답변폼 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// => BoardReplyFormAction 클래스 인스턴스 생성 및 공통 메서드 execute() 호출
+			// => 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
 			action = new BoardReplyFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/BoardReplyPro.bo")) {
+			action = new BoardReplyProAction();
 			
 			try {
 				forward = action.execute(request, response);

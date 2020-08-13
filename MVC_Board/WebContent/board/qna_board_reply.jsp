@@ -25,7 +25,7 @@ table {margin: auto; width: 450px;}
 <!-- 게시판 답변 -->
 
 <section id=writeForm>
- <h2>게시판등록</h2>
+ <h2>답글 등록</h2>
  <form action="BoardReplyPro.bo" method="post" name="boardform">
  <input type="hidden" name="page" value="<%=nowPage %>" />
  <input type="hidden" name="BOARD_NUM" value="<%=article.getBOARD_NUM() %>" />
@@ -48,7 +48,9 @@ table {margin: auto; width: 450px;}
   </tr>
   <tr>
    <td class="td_left"><label for="BOARD_CONTENT">내용</label></td>
-   <td class="td_right"><textarea name="BOARD_CONTENT" id="BOARD_CONTENT" cols="40" rows="15"></textarea></td>
+   <!--답변글 작성 폼에 기존 원본 게시물 내용 출력할 경우  -->
+   <td class="td_right"><textarea name="BOARD_CONTENT" id="BOARD_CONTENT" cols="40" rows="15">
+   --------원본글------- <%=article.getBOARD_CONTENT() %></textarea></td>
   </tr>
  </table>
   <section id="commandCell">
