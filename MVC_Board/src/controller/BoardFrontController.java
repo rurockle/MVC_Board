@@ -15,6 +15,7 @@ import action.BoardDetailAction;
 import action.BoardListAction;
 import action.BoardModifyFormAction;
 import action.BoardModifyProAction;
+import action.BoardReplyFormAction;
 import action.BoardWriteProAction;
 import vo.ActionForward;
 
@@ -113,6 +114,15 @@ public class BoardFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 
+		}else if(command.equals("/BoardReplyForm.bo")) {
+			action = new BoardReplyFormAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		//===============================================================================
 		// Redirect 방식과 Dispatch 방식에 대한 포워딩(이동)을 처리하기 위한 영역

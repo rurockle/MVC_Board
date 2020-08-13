@@ -30,12 +30,13 @@ public class BoardModifyProService {
 		isArticleWriter = boardDAO.isArticleBoardWriter(board_num, board_pass);
 		
 		
-		
+		/* [6] (공통) 자원반환 */
 		close(con);
 		
 		return isArticleWriter;
 	}
 
+	/* [7] 게시판 수정 작업 요청을 위한 modifyArticle()메서드 정의 */
 	public boolean modifyArticle(BoardBean article) {
 		boolean isModifySuccess = false;
 		
@@ -43,22 +44,20 @@ public class BoardModifyProService {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
-		int modifyCount = boardDAO.updateBoard(article);
+		/*[8] BoardDAO클래스의 updateBoard()메서드 호출하여 글 수정 작업 수행*/
+		// ==> 파라미터: BoardBean(article), 리턴타입: int(modifyCount)
+		int modifyCount = boardDAO.updateArticle(article);
 		
+		/* [9] 작업 수행 결과에 따라 commit, rollback여부 결정 */
 		if(modifyCount >0) { // 작업이 성공했을 경우
 			
-			commit(con);
-			
+			commit(con);			
 			isModifySuccess = true;
 		}else {
-			
-		
-		}
-		
-	  
-		    close(con);
-		
-		
+			rollback(con);		
+		}			  
+		    close(con);		
+		    
 		return isModifySuccess;
 	}
 

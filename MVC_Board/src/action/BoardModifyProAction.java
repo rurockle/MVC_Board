@@ -71,20 +71,19 @@ public class BoardModifyProAction implements Action {
 				out.println("alert('글 수정 실패!')"); //오류메시지 출력
 				out.println("history.back()"); // 이전페이지 이동
 				out.println("</script>"); // JS종료
-			}
+			}else {
 			/* [2-8] 수정작업이 성공했을 경우 */
 			// 게시물 상세내용요청을 위해 BoardDetail.bo 주소로 포워딩(redirect) 
-			// 파라미터로 게시물 번호와 페이지 전달
-			request.setAttribute("board_num", board_num);
-			request.setAttribute("page", page);
-			
+			// 파라미터로 게시물 번호와 페이지 전달(주소가 바뀌니까! )
 			forward = new ActionForward();
 			forward.setRedirect(true);
 			
+			request.setAttribute("board_num", board_num);
+			request.setAttribute("page", page);
 			
-			forward.setPath("BoardDetail.bo");
-			
+			forward.setPath("BoardDetail.bo?board_num="+board_num+"&page="+page);
 			}
+		}
 			
 
 		return forward;

@@ -14,6 +14,8 @@ board_re_seq INT NOT NULL,
 board_readcount INT DEFAULT 0,
 board_date DATE);
 
+Alter table board ADD board_ip VARCHAR(25);
+
 board_ip VARCHAR(25));
 
 desc board

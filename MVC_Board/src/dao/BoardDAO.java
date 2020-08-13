@@ -294,20 +294,25 @@ public class BoardDAO {
 		return isArticleWriter;
 	}
 
-	public int updateBoard(BoardBean article) {
-		int modifyCount = 0;
+	/* [9] 글수정(UPDATE)작업 수행을 위한 updateArticle()메서드 정의 */
+	public int updateArticle(BoardBean article) {
+		int updateCount = 0;
 		
 		PreparedStatement pstmt = null;
 		
 		try {
+			/* [9-1] 글번호에 해당하는 게시물의 제목, 이름, 내용 수정(UPDATE) */
+			//(sql 구문에서 명령어 띄어쓰기 외에 붙여쓰는 편이 좋다!!)
 			String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
 			pstmt = con.prepareStatement(sql);
+			/* [9-2] sql구문의 변수 세팅 */
 			pstmt.setString(1,article.getBOARD_NAME());
 			pstmt.setString(2, article.getBOARD_SUBJECT());
 			pstmt.setString(3, article.getBOARD_CONTENT());
 			pstmt.setInt(4, article.getBOARD_NUM());
-			modifyCount = pstmt.executeUpdate();
 			
+			/* [9-3] UPDATE 결과 성공 여부를 판별하는 updateCount */
+			updateCount = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -315,7 +320,7 @@ public class BoardDAO {
 		}
 		
 		
-		return modifyCount;
+		return updateCount;
 	}
 
 
