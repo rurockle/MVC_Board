@@ -403,5 +403,27 @@ public class BoardDAO {
 		return insertSuccess;
 	}
 
+	/* [11] 글 삭제 작업 수행을 위한 deleteArticle()메서드 정의 */
+	public int deleteArticle(int board_num) {
+	int deleteCount = 0;
+	PreparedStatement pstmt = null;	
+	
+	try {
+		String sql = "DELETE FROM board WHERE board_num=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, board_num);
+		
+		deleteCount = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+		System.out.println("BoardDAO - deleteArticle() 에러!");
+
+	} finally {
+		close(pstmt);
+	}
+	
+	return deleteCount;
+	}
+
 
 }

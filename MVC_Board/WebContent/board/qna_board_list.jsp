@@ -16,6 +16,7 @@
 	int startPage=pageInfo.getStartPage();
 	int endPage=pageInfo.getEndPage();
 	
+	
 %>
 
 <!DOCTYPE html>
@@ -62,6 +63,7 @@ table {
 <body>
 	<!-- 게시판 리스트 -->
 
+
 	<section id="listForm">
 		<h2>
 			글 목록<a href="BoardWriteForm.bo">게시판글쓰기</a>
@@ -94,9 +96,13 @@ if(articleList != null && listCount > 0){
 						<%=articleList.get(i).getBOARD_SUBJECT()%>
 				</a>
 				</td>
+<%
+SimpleDateFormat s = new SimpleDateFormat("yy-MM-dd");
+Date date = articleList.get(i).getBOARD_DATE();
+%>
 
 				<td><%=articleList.get(i).getBOARD_NAME() %></td>
-				<td><%=articleList.get(i).getBOARD_DATE() %></td>
+				<td><%=s.format(date) %></td>
 				<td><%=articleList.get(i).getBOARD_READCOUNT() %></td>
 				<td><%=articleList.get(i).getBOARD_IP() %></td>
 			</tr>

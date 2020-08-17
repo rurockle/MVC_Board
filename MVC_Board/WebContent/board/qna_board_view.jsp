@@ -12,21 +12,11 @@ String nowPage = (String) request.getAttribute("page");
 <meta charset="UTF-8">
 <title>MVC게시판</title>
 <style type="text/css">
-	#articleForm {
-		width: 500px;
-		height: 500px;
-		border: 1px solid red;
-		margin: auto;
-	}
+	#articleForm {width: 500px; height: 500px; border: 1px solid red; margin: auto;}
 	
-	h2 {
-		text-align: center;
-	}
+	h2 {text-align: center;}
 	
-	#basicInfoArea {
-		height: 40px;
-		text-align: center;
-	}
+	#basicInfoArea {height: 40px; text-align: center;}
 	
 	#articleContentArea {
 		background: orange;

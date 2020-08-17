@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.BoardDeleteProAction;
 import action.BoardDetailAction;
 import action.BoardListAction;
 import action.BoardModifyFormAction;
@@ -142,6 +143,20 @@ public class BoardFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/BoardDeleteForm.bo")) {
+			forward = new ActionForward();
+			forward.setPath("/board/qna_board_delete.jsp");
+		}else if(command.equals("/BoardDeletePro.bo")){
+			action = new BoardDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/BoardFileDown.bo")) {
+			forward = new ActionForward();
+			forward.setPath("/board/file_down.jsp");
 		}
 		//===============================================================================
 		// Redirect 방식과 Dispatch 방식에 대한 포워딩(이동)을 처리하기 위한 영역
