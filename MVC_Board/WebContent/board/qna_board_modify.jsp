@@ -1,6 +1,6 @@
-<%@page import="vo.PageInfo"%>
+<%@page import="board.vo.PageInfo"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="vo.BoardBean"%>
+<%@page import="board.vo.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%
 //BoardBean 객체(article) 가져오기

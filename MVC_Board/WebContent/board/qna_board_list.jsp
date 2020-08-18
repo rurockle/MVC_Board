@@ -1,5 +1,5 @@
-<%@ page import="vo.PageInfo"%>
-<%@ page import="vo.BoardBean"%>
+<%@ page import="board.vo.PageInfo"%>
+<%@ page import="board.vo.BoardBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>

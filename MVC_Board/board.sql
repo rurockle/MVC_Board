@@ -27,3 +27,16 @@ SELECT * FROM BOARD;
 SELECT * FROM board ORDER BY board_re_ref DESC, board_re_seq LIMIT 1,10;
 
 SELECT * FROM board ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT 1,10;
+
+CREATE TABLE member (
+	idx INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL,
+	id VARCHAR(12) UNIQUE NOT NULL,
+	passwd VARCHAR(16) NOT NULL,
+	email VARCHAR(50) UNIQUE NOT NULL,
+	regDate DATE NOT NULL
+);
+
+select * from member;
+
+show tables;
