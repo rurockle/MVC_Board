@@ -16,7 +16,6 @@
 	int startPage=pageInfo.getStartPage();
 	int endPage=pageInfo.getEndPage();
 	
-	
 %>
 
 <!DOCTYPE html>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import member.vo.ActionForward;
 import member.action.Action;
 import member.action.MemberJoinProAction;
+import member.action.MemberListAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberLogoutAction;
 
@@ -54,6 +55,14 @@ public class MemberFrontController extends HttpServlet {
 		} else if(command.equals("/MemberLogout.me")) {
 			action = new MemberLogoutAction();
 			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/MemberList.me")) {
+			action = new MemberListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -410,7 +410,8 @@ public class BoardDAO {
 	PreparedStatement pstmt = null;	
 	
 	try {
-		String sql = "DELETE FROM board WHERE board_num=?";
+		String sql = "DELETE FROM board WHERE board_num=?"
+				+ "";
 		pstmt = con.prepareStatement(sql);
 		pstmt.setInt(1, board_num);
 		
@@ -425,6 +426,10 @@ public class BoardDAO {
 	
 	return deleteCount;
 	}
+
+	
+	
+
 
 
 }

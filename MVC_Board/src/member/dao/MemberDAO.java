@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static member.db.JdbcUtil.*;
 
@@ -134,7 +135,81 @@ public class MemberDAO {
 		
 		return checkResult;
 	}
+
+	public ArrayList<MemberBean> selectMemberList() {
+		
+		PreparedStatement pstmt = null;
+		
+		
+		ArrayList<MemberBean> memberList = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			memberList = new ArrayList<MemberBean>();
+			while(rs.next()) {
+				MemberBean member = new MemberBean();
+				member.setId(rs.getString("id"));
+				member.setIdx(rs.getInt("idx"));
+				member.setPasswd(rs.getString("passwd"));
+				member.setEmail(rs.getString("email"));
+				member.setRegDate(rs.getDate("regDate"));
+				member.setName(rs.getString("name"));
+				
+				memberList.add(member);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("MemberDAO - selectMemberList() 오류!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return memberList;
+	}
+
 	
+	// 회원목록 조회작업을 위한 selectMemberList 메서드 정의 - 파라미터 있을 경우
+	public ArrayList<MemberBean> selectMemberList(String orderTarget, String orderType) {
+		
+		PreparedStatement pstmt = null;
+		
+		
+		ArrayList<MemberBean> memberList = null;
+		ResultSet rs = null;
+		try {
+			// ORDER BY 절의 항목을 문자열 결합으로 생성
+			String sql = "SELECT * FROM member ORDER BY " + orderTarget + " " + orderType;
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			memberList = new ArrayList<MemberBean>();
+			while(rs.next()) {
+				MemberBean member = new MemberBean();
+				member.setId(rs.getString("id"));
+				member.setIdx(rs.getInt("idx"));
+				member.setPasswd(rs.getString("passwd"));
+				member.setEmail(rs.getString("email"));
+				member.setRegDate(rs.getDate("regDate"));
+				member.setName(rs.getString("name"));
+				
+				memberList.add(member);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("MemberDAO - selectMemberList()-파라미터있음 오류!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+
+		return memberList;
+	}
 	
 }
 

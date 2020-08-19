@@ -57,5 +57,10 @@ public class MemberBean {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	@Override
+	public String toString() {
+		return "MemberBean [idx=" + idx + ", name=" + name + ", id=" + id + ", passwd=" + passwd + ", email=" + email
+				+ ", regDate=" + regDate + "]";
+	}
 	
 }

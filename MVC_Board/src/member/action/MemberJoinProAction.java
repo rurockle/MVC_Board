@@ -36,7 +36,7 @@ public class MemberJoinProAction implements Action {
 		// => 파라미터 : MemberBean, 리턴타입 : int
 		MemberJoinProService memberJoinProService = new MemberJoinProService();
 		int checkResult = memberJoinProService.dupCheckMember(member);
-		
+		System.out.println(checkResult);
 		/*[3] 중복 체크 결과 작업*/
 		// 중복 체크 결과가 0 이면 "아이디 중복", -1 이면 "이메일 중복" 메세지를 
 		// 문자열(resultStr)에 저장 후 자바스크립트를 사용하여 

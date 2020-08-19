@@ -47,7 +47,7 @@ if(id == null){ //id == null도 가능 // .length getParameter때 사용%>
 
 <%}else{%>
 <header style="text-align: right;"><%=session.getAttribute("id") %>님 | <a href="MemberLogout.me" >로그아웃</a> | 
-								<a href="MemberModifyForm.me" >정보수정</a></header>	
+ <a href="MemberModifyForm.me" >정보수정</a> | <a href="MemberList.me">관리자 페이지</a> </header>	
 <%}%>
 
 	<h1>Main</h1>
